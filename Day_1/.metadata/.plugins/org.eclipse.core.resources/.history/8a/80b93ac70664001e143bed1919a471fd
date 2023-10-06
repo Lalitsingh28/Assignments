@@ -1,0 +1,11 @@
+package com.assignment.service;
+
+public class ApiService {
+	
+	private final String apiKey = "your_api_key_here";
+    private final String apiUrl = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions";
+    
+    
+
+
+}

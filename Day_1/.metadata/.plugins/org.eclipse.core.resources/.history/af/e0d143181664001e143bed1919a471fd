@@ -1,0 +1,74 @@
+package com.assignment.service;
+
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service
+public class ApiService {
+	
+    private final String apiUrl = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions";
+   
+    @Value("${apiKey}")
+    private String apiKey;
+    
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public String generateContent(String keyword) {
+        try {
+            String apiUrl = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions";
+            String prompt = "Generate content related to: " + keyword;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + apiKey);
+
+            HttpEntity<String> requestEntity = new HttpEntity<>("{\"prompt\":\"" + prompt + "\"}", headers);
+
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    apiUrl,
+                    HttpMethod.POST,
+                    requestEntity,
+                    String.class
+            );
+
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                String jsonResponse = responseEntity.getBody();
+                String generatedContent = parseGeneratedContent(jsonResponse);
+                return generatedContent;
+            } else {
+                return "Error: Unable to generate content";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error: An exception occurred while making the API request.";
+        }
+    }
+
+    private String parseGeneratedContent(String jsonResponse) {
+        try {
+            JsonNode rootNode = objectMapper.readTree(jsonResponse);
+            JsonNode choicesNode = rootNode.get("choices");
+            if (choicesNode != null && choicesNode.isArray() && choicesNode.size() > 0) {
+                JsonNode textNode = choicesNode.get(0).get("text");
+                if (textNode != null) {
+                    return textNode.asText();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Error: Failed to parse generated content";
+    }
+
+
+}

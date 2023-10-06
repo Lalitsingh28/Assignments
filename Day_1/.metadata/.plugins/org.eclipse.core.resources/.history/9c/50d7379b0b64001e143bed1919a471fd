@@ -1,0 +1,48 @@
+package com.assignment.controller;
+
+import java.net.HttpURLConnection;
+import java.net.http.HttpResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.assignment.service.ApiService;
+
+@RestController
+@RequestMapping("/content")
+public class ApiController {
+	
+	@Autowired
+	private ApiService apiService;
+	
+	
+	@GetMapping("/shayari")
+	public ResponseEntity<String> getShayari(@RequestParam String keyword){
+		
+		String response = apiService.generateContent(keyword);
+		return new ResponseEntity<>(response,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/story")
+	public ResponseEntity<String> getStory(@RequestParam String keyword){
+		
+		String response = apiService.generateContent(keyword);
+		return new ResponseEntity<>(response,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/joke")
+	public ResponseEntity<String> getJokes(@RequestParam String keyword){
+		
+		String response = apiService.generateContent(keyword);
+		return new ResponseEntity<>(response,HttpStatus.OK);
+		
+	}
+
+}

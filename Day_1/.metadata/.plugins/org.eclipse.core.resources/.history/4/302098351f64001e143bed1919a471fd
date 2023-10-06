@@ -1,0 +1,29 @@
+package com.assignment.dto;
+
+
+public class Message {
+	
+	private String role;
+	
+	private String massage;
+	
+	public Message() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Message(String massage) {
+		super();
+		this.massage = massage;
+	}
+
+	public String getMassage() {
+		return massage;
+	}
+
+	public void setMassage(String massage) {
+		this.massage = massage;
+	}
+	
+	
+
+}

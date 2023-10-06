@@ -1,0 +1,8 @@
+package com.assignment.dto;
+
+
+public class Response {
+	
+	private String massage;
+
+}

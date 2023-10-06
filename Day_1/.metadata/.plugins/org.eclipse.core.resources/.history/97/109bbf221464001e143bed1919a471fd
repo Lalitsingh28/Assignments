@@ -1,0 +1,52 @@
+package com.assignment.service;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
+@Service
+public class ApiService {
+	
+    private final String apiUrl = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions";
+   
+    @Value("${apiKey}")
+    private String apiKey;
+    
+    private final OkHttpClient httpClient = new OkHttpClient();
+
+    public String generateContent(String keyword) {
+        try {
+            String apiUrl = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions";
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("prompt", keyword)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .header("Authorization", "Bearer " + apiKey)
+                    .post(requestBody)
+                    .build();
+
+            Response response = httpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return response.body().string();
+            } else {
+                return "Error: Unable to generate content";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error: An exception occurred while making the API request.";
+        }
+    }
+
+}

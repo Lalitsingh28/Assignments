@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1>Code Editor</h1>
+    </header>
+    <main>
+        <section id="editor-section">
+            <select id="language-editor">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="c">C</option>
+                <option value="c++">C++</option>
+                
+            </select>
+            <div id="editor">
+            </div>
+        </section>
+        <section id="buttons-section">
+            <button id="debug-button" onclick="debugCode()">Debug</button>
+            <button id="quality-button" onclick="checkCodeQuality()">Check Quality</button>
+            <button id="convert-button" onclick="convertCode()">Convert</button>
+            <select id="language-select">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="c">C</option>
+                <option value="c++">C++</option>
+                
+            </select>
+        </section>
+        <section id="results-section">
+            <h2>Results:</h2>
+            <div id="results"></div>
+        </section>
+    </main>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.29.0/min/vs/loader.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

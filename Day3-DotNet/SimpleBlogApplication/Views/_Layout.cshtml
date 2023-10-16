@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"] - Simple Blog</title>
+</head>
+<body>
+    <header>
+        <h1>Simple Blog</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Blog" asp-action="BlogPosts">Blog Posts</a></li>
+            <li><a asp-controller="Home" asp-action="About">About</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>

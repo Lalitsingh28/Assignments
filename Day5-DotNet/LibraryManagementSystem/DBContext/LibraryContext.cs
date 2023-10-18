@@ -8,10 +8,11 @@ namespace LibraryManagementSystem.DBContext
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Patron> Patrons { get; set; }
+        public DbSet<Author> Authors { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public LibraryContext(DbContextOptions<LibraryContext> options)
+        : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=master;Trusted_Connection=True;");
         }
 
 

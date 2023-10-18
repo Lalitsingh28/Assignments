@@ -14,5 +14,7 @@ namespace LibraryManagementSystem.Model
         [Required]
         public string Author { get; set; }
         public DateTime PublicationDate { get; set; }
+
+        public Author Author { get; set; }
     }
 }
